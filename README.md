@@ -30,7 +30,7 @@ navio = Navio()
 reserva = fazerReserva(carga, navio)
 ```
 
-Mas agora vem algo que você, que trabalha bem longe ao porto, provavelmente não sabe: pelo fato de sempre haver cancelamento por parte dos clientes de última hora, se tornou padrão na indústria reservar uma quantidade maior de cargas em um navio do que ele de fato suporta. Essa prática é chamada de "**overbooking**". Às vezes é usado apenas uma porcentagem para calcular o tal overbooking; às vezes podem ser regras complexas que favorecem um cliente ao invés de outro, ou então alguns tipos de carga.
+Mas agora vem algo que você, que mora a muitos quilometros de um porto, provavelmente não sabe: pelo fato de sempre haver cancelamento por parte dos clientes de última hora, se tornou padrão na indústria reservar uma quantidade maior de cargas em um navio do que ele de fato suporta. Essa prática é chamada de "**overbooking**". Às vezes é usado apenas uma porcentagem para calcular o tal overbooking; às vezes podem ser regras complexas que favorecem um cliente ao invés de outro, ou então alguns tipos de carga.
 
 Essa é uma estratégia totalmente popular entre as pessoas que trabalham na indústria de cargas, porém pode não ser facilmente entendido por todas os desenvolvedores do time.
 
