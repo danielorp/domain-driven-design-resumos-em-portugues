@@ -110,7 +110,8 @@ class OverbookingPolicy:
 
 Desse modo, vai ficar claro para todo mundo que *overbooking* é uma política distinta, e a regra dessa política está explícita e separada.
 
-Claro, isso não significa que você deve aplicar tal design para **todas** as implementações, iremos ver futuramente como julgar quais os momentos mais adequados para tal. Porém, esse design explícito traz as seguintes vantagens:
-- Pra que seja modelado dessa forma elaborada, os programadores e todos os envolvidos devem chegar a um consenso sobre o que é a natureza de um overbooking e como tal política é importante para o negócio, não apenas um cálculo obscuro.
+Claro, isso não significa que você deve aplicar tal design para **todas** as implementações, iremos ver futuramente como julgar quais os momentos mais adequados para tal. Porém, esse design explícito traz diversas vantagens.
+
+Pra que seja modelado dessa forma elaborada, os programadores e todos os envolvidos devem chegar a um consenso sobre o que é a natureza de um overbooking e como tal política é importante para o negócio, não apenas um cálculo obscuro.
 
 Os programadores devem mostrar tais artefatos acima, talvez até mesmo a modelagem da classe se os experts de domínio se mostrarem interessados, e esses modelos devem ser compreensíveis (com auxílio dos desenvolvedores) àqueles que fazem parte do domínio, assim firmando um ciclo virtuoso de **feedback** entre os envolvidos.
