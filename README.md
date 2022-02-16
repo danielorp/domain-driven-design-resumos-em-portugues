@@ -10,13 +10,12 @@ Os experts de domínio, em seu dia-a-dia, não percebem o quão complexos seus p
 ##### Extraindo um conceito escondido.
 
 Vamos começar com um exemplo simples de um modelo que pode servir como base para uma aplicação que realiza *booking* de cargas em um navio.
-                                                                  
-           +----------------+                   +----------------+
-           |                |                   |                |
-           |     Navio      |<----------------->|     Carga      |
-           |                |                   |                |
-           +----------------+                   +----------------+
-                                                        
+
+```mermaid
+graph LR
+    A[Navio]-->C[Cargo]
+```
+
 Podemos afirmar que a aplicação tem responsabilidade de associar cada **Carga** a um **Navio**, e gravar as interações dessa relação. Até aqui tudo bem. Um código possível seria esse:
 
 ```python
