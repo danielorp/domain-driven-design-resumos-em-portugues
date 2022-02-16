@@ -1,9 +1,9 @@
 ## Design Orientado ao Conhecimento
 
-Construir um modelo que reflita o conhecimento adquirido em conjunto aos experts de domínio vai muito além de realizar dinâmicas como *listar os substantivos*, como aprendemos tradicionalmente. As atividades do dia-a-dia e regras implícitas são centrais ao modelo de domínio que estamos construíndo, já que as entidades evoluem à medida que nosso conhecimento sobre o negócio também evolui. O ato de *triturar* o conhecimento instiga que surjam modelos que reflitam esse novo conhecimento adquirido. Em paralelo, à medida que os modelos mudam, os desenvolvedores refatoram sua implementação para que ela expresse a intenção do modelo, dando utilidade ao código escrito.
+Construir um modelo que reflita o conhecimento adquirido junto aos experts de domínio vai muito além de fazer dinâmicas como *listar os substantivos*, como aprendemos tradicionalmente. As atividades do dia-a-dia e regras implícitas são pontos centrais no modelo de domínio que estamos construíndo, já que as entidades evoluem à medida que nosso conhecimento sobre o negócio também evolui. A atividade que chamamos de *triturar* conhecimento instiga que surjam novos modelos que reflitam esse novo conhecimento adquirido. Em paralelo, à medida que os modelos mudam, os desenvolvedores refatoram sua implementação para que ela expresse a intenção por trás do modelo, dando utilidade ao código escrito.
 
-Após o estágio onde as entidades do sistema e os valores que elas podem assumir são compreendidos, o triturar do conhecimento pode se tornar um pouco perturbador, pois muitas vezes ele revela que há inconsistências reais nas regras de negócio.
-Os experts de domínio, em seus trabalhos diários, não percebem o quão complexos seus processos mentais podem ser, à medida que eles navegam em meio a regras, relevam contradições, e preenchem as incertezas com senso comum. Software não tem essa capacidade. É através do triturar do conhecimento, em parceria íntima com os experts de domínio que as regras são esclarecidas, reveladas, combinadas ou até retiradas de escopo.
+Após a fase onde as entidades do sistema e os valores que elas podem assumir são compreendidos, o triturar do conhecimento pode se tornar um pouco desconfortável, porque muitas vezes ele mostra como há inconsistências reais nas regras de negócio.
+Os experts de domínio, em seu dia-a-dia, não percebem o quão complexos seus processos mentais podem ser, à medida que eles navegam em meio a regras, relevam contradições, e preenchem as incertezas com senso comum. Software não tem essa capacidade. É através do *triturar do conhecimento*, em parceria direta com os experts de domínio que as regras são esclarecidas, reveladas, combinadas ou até retiradas de escopo.
 
 #### Exemplo
 
@@ -17,7 +17,7 @@ Vamos começar com um exemplo simples de um modelo que pode servir como base par
            |                |                   |                |
            +----------------+                   +----------------+
                                                         
-Nós podemos afirmar que a aplicação tem responsabilidade de associar cada **Carga** com um **Navio**, e gravar as interações dessa relação. Até aqui tudo bem. Um código possível seria esse:
+Podemos afirmar que a aplicação tem responsabilidade de associar cada **Carga** a um **Navio**, e gravar as interações dessa relação. Até aqui tudo bem. Um código possível seria esse:
 
 ```python
 def fazerReserva(carga, navio):
@@ -30,9 +30,9 @@ navio = Navio()
 reserva = fazerReserva(carga, navio)
 ```
 
-Mas agora vem algo que você, que mora a muitos quilometros de um porto, provavelmente não sabe: pelo fato de sempre haver cancelamento por parte dos clientes de última hora, se tornou padrão na indústria reservar uma quantidade maior de cargas em um navio do que ele de fato suporta. Essa prática é chamada de "**overbooking**". Às vezes é usado apenas uma porcentagem para calcular o tal overbooking; às vezes podem ser regras complexas que favorecem um cliente ao invés de outro, ou então alguns tipos de carga.
+Mas agora vem algo que você - que mora bem longe do litoral - provavelmente não sabe: pelo fato de sempre haver cancelamento por parte dos clientes de última hora se tornou padrão na indústria reservar uma quantidade maior de cargas em um navio do que ele de fato suporta. Essa prática é chamada de "**overbooking**". Às vezes é usado apenas uma porcentagem para calcular o tal overbooking; às vezes podem ser regras complexas que favorecem um cliente ao invés de outro, ou então alguns tipos de carga.
 
-Essa é uma estratégia totalmente popular entre as pessoas que trabalham na indústria de cargas, porém pode não ser facilmente entendido por todas os desenvolvedores do time.
+Essa é uma estratégia comum entre as pessoas que trabalham na indústria de cargas, porém pode não ser facilmente entendido por todas os desenvolvedores do time.
 
 Então um belo dia você recebe o tal requisito a ser implementado no sistema, com a seguinte descrição:
 
