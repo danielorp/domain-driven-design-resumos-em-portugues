@@ -11,10 +11,8 @@ Os experts de domínio, em seu dia-a-dia, não percebem o quão complexos seus p
 
 Vamos começar com um exemplo simples de um modelo que pode servir como base para uma aplicação que realiza *booking* de cargas em um navio.
 
-```mermaid
-graph LR
-    A[Navio]-->C[Cargo]
-```
+![](1.png)
+
 
 Podemos afirmar que a aplicação tem responsabilidade de associar cada **Carga** a um **Navio**, e gravar as interações dessa relação. Até aqui tudo bem. Um código possível seria esse:
 
@@ -39,13 +37,8 @@ Então um belo dia você recebe o tal requisito a ser implementado no sistema, c
 
 Vamos então deixar o diagrama assim, pra contemplar essa nova demanda:
 
-          
-           +----------------+                   +----------------+
-           |     Navio      |                   |     Carga      |
-           |               -|<----------------->|                |
-           |----------------|                   ------------------
-           |   capacidade   |                   |      peso      |
-           +----------------+                   +----------------+
+![](2.png)
+
 
 E mudamos nosso código pra que fique assim:
 
@@ -67,21 +60,9 @@ reserva = fazerReserva(carga, navio)
 Agora atenção: estamos escrevendo de um modo obscuro algo que é claramente uma regra de negócio **muito importante**.
 Da maneira como está escrito acima vai ser muito difícil algum expert de domínio entender exatamente o pensamento por trás disso, mesmo com a ajuda de um desenvolvedor. Imagine se a regra fosse ainda mais complexa, o pesadelo que seria fazer com que essa regra agora apenas se aplicasse a navios de certo tipo de casco, ou para cargas que estão em certas baias.
 
-O que precisamos fazer é capturar a essência do conhecimento que está por trás dessa regra de negócio. O que estamos tratando aqui, **overbooking**, claramente trata-se de uma **Policy** (política, como em "política de incentivo a x, y e z").                                             
-                                                                  
-           +----------------+                   +----------------+
-           |     Navio      |                   |     Carga      |
-           |               -|<--------|-------->|                |
-           |----------------|         |         ------------------
-           |   capacidade   |         |         |      peso      |
-           +----------------+         |         +----------------+
-                  {sum(carga.peso) < navio.capacidade * 1.1}      
-                                      |                           
-                                      |                           
-                             +-----------------+                  
-                             |   Overbooking   |                  
-                             |     Policy      |                  
-                             +-----------------+                  
+O que precisamos fazer é capturar a essência do conhecimento que está por trás dessa regra de negócio. O que estamos tratando aqui, **overbooking**, claramente trata-se de uma **Policy** (política, como em "política de incentivo a x, y e z").                                          
+
+![](3.png)
 
 ```python
 overbookingPolicy = OverbookingPolicy()
