@@ -1,4 +1,4 @@
-## Design Orientado ao Conhecimento
+## 1. Design Orientado ao Conhecimento
 
 Construir um modelo que reflita o conhecimento adquirido junto aos experts de domínio vai muito além de fazer dinâmicas como *listar os substantivos*, como aprendemos tradicionalmente. As atividades do dia-a-dia e regras implícitas são pontos centrais no modelo de domínio que estamos construíndo, já que as entidades evoluem à medida que nosso conhecimento sobre o negócio também evolui. A atividade que chamamos de *triturar* conhecimento instiga que surjam novos modelos que reflitam esse novo conhecimento adquirido. Em paralelo, à medida que os modelos mudam, os desenvolvedores refatoram sua implementação para que ela expresse a intenção por trás do modelo, dando utilidade ao código escrito.
 
@@ -95,3 +95,30 @@ Claro, isso não significa que você deve aplicar tal design para **todas** as i
 Pra que seja modelado dessa forma elaborada, os programadores e todos os envolvidos devem chegar a um consenso sobre o que é a natureza de um overbooking e como tal política é importante para o negócio, não apenas um cálculo obscuro.
 
 Os programadores devem mostrar tais artefatos acima, talvez até mesmo a modelagem da classe se os experts de domínio se mostrarem interessados, e esses modelos devem ser compreensíveis (com auxílio dos desenvolvedores) àqueles que fazem parte do domínio, assim firmando um ciclo virtuoso de **feedback** entre os envolvidos.
+
+## 2. Isolando o domínio
+
+As classes descritas nos exemplos acima expressam o **domínio** do software, ou seja, expressam o conhecimento que desejamos extrair dos experts de domínio e transformar em modelo, que logo em seguida terá também sua representacão em código: nosso produto final.
+
+Porém uma aplicação é composta de muitas partes. Para que um usuário escolha uma cidade de destino para uma carga dentre uma lista de diversas cidades é preciso de um programa que faça as seguintes tarefas: 
+  1. Desenhe um ícone de seleção na tela
+  2. Busque no banco de dados quais são todas as cidades possíveis
+  3. Interprete a cidade que o usuário selecionou na tela
+  4. Associe a cidade a uma carga, e 
+  5. Faça com que as alterações sejam gravadas no banco de dados.
+
+Atualmente, devido à popularização de frameworks e microserviços, um programador com alguns poucos meses de experiência é exposto desde cedo à ideia de que há uma separação clara entre dois universos: o que é desenhado na tela e a lógica da aplicação/persistência dos dados - popularmente conhecido como front-end e back-end. Essa ideia é relativamente nova para aplicações de pequeno-médio porte, especialmente quando olhamos para linguagens de programação que oferecem nativamente (ou com extensões oficiais) um grande ambiente com todas as peças disponíveis: componentes de tela como tabelas, grids e botões, componentes que acessam banco de dados, componentes que tratam requests web, etc. Em uma linguagem com essa capacidade é tentador misturar todos esses componenetes pois afinal esse é o modo mais simples de fazer a aplicação rodar no curto prazo.
+
+// Colocar aqui um exemplo de mistura de lógica front-end com back-end.
+
+Surge portanto a ideia de uma **arquitetura em camadas**, onde haverá no mínimo um arquivo ou classe responsável por cada camada. Essa especialização permite um design mais coeso de cada aspecto, além de tornar mais simples a leitura do código, pois está definido exatamente qual a responsabilidade da classe/arquivo. Experiência e convenção devem ditar as regras aqui, para que não exageremos na divisão de responsabilidade ou a ignoremos por completo.
+
+Convencionou-se que as camadas são as seguintes, com pequenas variações:
+   1. Camada da **Interface gráfica** (ou de **Apresentação**)
+      - Responsável por mostrar as informações ao usuário e interpretar os comandos do usuário. Um usuário pode ser uma pessoa interagindo com uma tela, mas também um sistema externo. Enquanto um usuário pode ter a capacidade de clicar em um botão para adicionar uma carga a um navio, um sistema externo pode ter a capacidade de enviar uma requisição para adicionar uma carga a um navio. A maneira como isso é mostrado ao usuário muda, mas a ideia permanece: um ator externo pede, clica, solicita, requisita.
+   2. Camada da **Aplicação**
+      - Define qual exatamente é a tarefa que o software precisa realizar e solicita com detalhes ao domínio quais são os parâmetros que ele deve usar para cumprir o pedido. Essa camada geralmente é mantida fina, com pouco código, afinal ela não tem lógica de negócios. Ela também não tem estado, ou seja, ela não sabe decidir se uma operação vai ser concluída ou não, porém ela pode guardar o estado que vem da camada de domínio para que a camada de interface gráfica mostre uma barra de progresso para o usuário, por exemplo.
+   3. Camada do **Domínio**
+      - Responsável por representar os conceitos do negócio, informações sobre o negócio, e regras de negócio. Quer saber qual a lotação do navio de carga no momento? Essa informação é mantida aqui! É a camada de domínio que será consultada a fim de saber se o navio está cheio, vazio, perto da capacidade máxima etc. ***Essa camada é o coração do software.*** Entretanto, os detalhes técnicos de onde está armazenado esse dado será responsabilidade da camada de Infraestrutura.
+   4. Camada da **Infraestrutura**
+        - Provê os detalhes técnicos e de certo modo genéricos que suportam as camadas acima: a mensagem que será enviada à aplicação, a persistência dos dados que o domínio usa e assim por diante. Essa camada de infraestrutura também pode oferecer suporte às interações entre todas as camadas através de um framework arquitetural. Exemplo: frameworks atuais que acessam banco de dados de maneira simples, fornecem componentes de tela padronizados, etc.
